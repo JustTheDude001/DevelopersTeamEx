@@ -124,9 +124,9 @@ class IndexController extends ApplicationController{
 		//JSON Persistency
 		//$appModel = new JSONModel();
 		//mySQL Persistency
-		$appModel = new MySQLModel();
+		//$appModel = new MySQLModel();
 		//MongoDB Persistency
-		//$appModel = new MongoDBModel();
+		$appModel = new MongoDBModel();
 		
 		$actRequest = new Request();
 		$actionDone = False;
