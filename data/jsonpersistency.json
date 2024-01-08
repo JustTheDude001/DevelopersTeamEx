@@ -1,0 +1,12 @@
+{
+    "tasks": [
+        {
+            "task_id": 1,
+            "user": "Dude",
+            "task_type": "Finished",
+            "description": "two",
+            "creation_date": "2024-01-08T12:32",
+            "finalization_date": "2024-01-08 12:32"
+        }
+    ]
+}

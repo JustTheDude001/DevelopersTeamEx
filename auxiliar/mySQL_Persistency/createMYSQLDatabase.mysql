@@ -1,0 +1,25 @@
+
+-- Create Database:
+create database tasks_database;
+
+-- Create table tasks.....
+CREATE TABLE Tasks (
+	task_id int AUTO_INCREMENT,
+	user varchar(128),
+	task_type ENUM('Pending', 'Ongoing', 'Finished'),
+	description varchar(1500),
+	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	finalization_date TIMESTAMP,
+	UNIQUE(task_id)
+);
+
+-- Insert in the table some data to check consistency:
+INSERT INTO Tasks
+VALUES (
+	Null,
+	"mario",
+	"Pending",
+	"This is the first task for mysql",
+	null,
+	null
+);

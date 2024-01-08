@@ -1,0 +1,42 @@
+#modFormDiv{
+	@apply fixed snap-center size-full object-center;
+	@apply bg-slate-500 bg-opacity-70;
+	@apply left-0 right-0 top-0 bottom-0;
+	@apply block;
+	
+}
+#innerModFormDiv{
+	@apply flex items-center justify-center size-full;
+	@apply bg-opacity-100;
+
+}
+#contentModFormDiv{
+	@apply flex flex-auto flex-col flex-wrap flex-wrap justify-center items-center content-center mx-auto;
+	@apply m-4 bg-slate-300 rounded-lg border-4 border-black border-solid;
+}
+html{
+	@apply font-sans;
+}
+
+#contentModFormDiv > form{
+	@apply m-4;
+}
+#contentModFormDiv > form > label{
+	@apply my-4 font-bold;
+	
+}
+#contentModFormDiv > form > input, #contentModFormDiv > form > select{
+	@apply my-2;
+}
+
+#modTaskDescription{
+	@apply size-full;
+}
+
+#submitModForm{
+	@apply size-full font-bold;
+}
+
+#contentModFormDiv > form > button{
+	@apply my-4 size-full font-bold;
+}

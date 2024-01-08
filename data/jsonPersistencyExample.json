@@ -1,0 +1,30 @@
+{
+	"tasks":[
+		{
+			"task_id" : "1",
+			"user": "Dudes",
+			"task_type": "Pending",
+			"description": "Finish the sprint 3 with JSON Persistency",
+			"creation_date": "2023-12-30",
+			"finalization_date": "2023-12-31"
+		},
+		{
+			"task_id" : "2",
+			"user": "DudesThree",
+			"task_type": "Pending",
+			"description": "Finish the sprint 3 with MySql Persistency",
+			"creation_date": "2023-12-30",
+			"finalization_date": "2023-12-31"
+		},
+		{
+			"task_id" : "3",
+			"user": "Dudes",
+			"task_type": "Pending",
+			"description": "Finish the sprint 3 with MongoDB Persistency",
+			"creation_date": "2023-12-30",
+			"finalization_date": "2023-12-31"
+		}
+	
+	
+	]
+}

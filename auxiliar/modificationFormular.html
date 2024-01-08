@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	</head>
+	<body>
+		<header> Just the formular to task modificiation - In order to design it and make a copy paste afterwards.</header>
+		
+		
+		<div id="modFormDiv">
+		<div id="innerModFormDiv">
+		<div id="contentModFormDiv">
+		<form>
+			<label for="modTaskId">Task ID:</label><br>
+			<input type="text" id="modTaskId" name="modTaskId" value="1" readonly><br>
+			
+			<label for="modTaskCreator">Task Creator:</label><br>
+			<input type="text" id="modTaskCreator" name="modTaskCreator" value="Dude"><br>
+			
+			<label for="modTaskType">Task Type:</label><br>
+			<select id="modTaskType" name="modTaskType">
+				<option value="Pending">Pending</option>
+				<option value="Ongoing">Ongoing</option>
+				<option value="Finished">Finished</option>
+			</select><br>
+			
+			
+			<label for="modTaskDescription">Task Description:</label><br>
+			<textarea rows="5" id="modTaskDescription" name="modTaskDescription" value="Finish the sprint 3 with JSON Persistency">
+			</textarea><br>
+			
+			
+			<label for="modCreationDate">Creation Date of the task: (Auto update if none)</label><br>
+			<input
+				type="datetime-local"
+				id="modCreationDate"
+				name="modCreationDate"
+				/><br>
+				
+			<label for="modFinalizationDate">Finalization Date of the task: (Auto update if none)</label><br>
+			<input
+				type="datetime-local"
+				id="modFinalizationDate"
+				name="modFinalizationDate"
+				/><br>
+			
+			
+			<input id="submitModForm" type="submit">
+			
+			<button id="modFormCloseButton" onclick="closeFormPopUpFunction()">
+			Cancel
+			</button>
+			
+		</form>
+			
+		</div>
+		</div>
+		</div>
+		
+		
+		
+   </body>
+</html>

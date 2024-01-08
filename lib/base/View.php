@@ -39,6 +39,8 @@ class View
 		
 		// returns the content of the output buffer
 		$this->_content = ob_get_clean();
+		
+		
 	}
 	
 	/**
@@ -120,6 +122,46 @@ class View
 		// stores the data
 		$this->_data[$key] = $value;
 	}
+	
+	//Okay I know I should make a new class derived from view... nonetheless....
+	/**
+	 * stores the given associative array 
+	 * @param string $key the key to store the data under
+	 * @param mixed $value the value to store
+	 */
+	public function __setAssociativeArray($array)
+	{
+		// stores the data
+		
+		foreach($array as $key=>$value){
+			$this->_data[$key] = $value;
+		}
+		
+		//$this->_data[$key] = $value;
+	}
+	
+	public function __getAssociativeArray()
+	{
+		// stores the data
+		
+		return $this->_data;
+	}
+	
+	public function __setArrayOfAssociativesArray($arrays)
+	{
+		// stores the data
+		/*
+		foreach($allArrays as $associativeArray){
+			foreach($array as $key=>$value){
+				$this->_data[$key] = $value;
+			}
+		}*/
+		
+		$this->_data = $arrays;
+	}
+	
+	
+	
 	
 	/**
 	 * Returns the data if it exists, else nul

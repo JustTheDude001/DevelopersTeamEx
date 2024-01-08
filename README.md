@@ -46,6 +46,7 @@ All models should inherit from the Model class, which provides basic functionali
 The Model class handles basic functionality such as:
 
 Setting up a database connection (using PDO)
+//PDO stands for PHP Data Objects or Portable Distributed Objects
 fetchOne(ID)
 save(array) → both update/create
 delete(ID)

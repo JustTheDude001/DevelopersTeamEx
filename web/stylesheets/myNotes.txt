@@ -1,0 +1,4 @@
+
+- Build css to tailwind css:
+npx tailwindcss build indexStylesheetIn.css -o indexStylesheet.css
+npx tailwindcss build -i indexStylesheetIn.css -o indexStylesheet.css

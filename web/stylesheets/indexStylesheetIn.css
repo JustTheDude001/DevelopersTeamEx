@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";*/
+
+html{
+	@apply font-sans bg-slate-300;
+}
+
+body{
+    @apply container mx-auto;
+
+}
+
+header{
+	@apply flex w-full bg-slate-600 text-white text-xl rounded-none border-b-4 border-slate-400 border-solid items-center justify-between;
+}
+
+#addTaskButton, #addTaskButtonEmptyState{
+	@apply p-5 m-3;
+	@apply bg-slate-300 rounded-lg;
+}
+
+header > h2{
+	@apply m-7;
+}
+main{
+	@apply bg-slate-500;
+}
+
+#tasksList{
+    /*@apply box-border;
+    @apply table w-full table-auto border-separate;
+    @apply place-content-center;*/
+    @apply table-auto border-separate w-full;
+}
+/*
+#headerTasksList{
+    @apply container;
+    @apply table-header-group gap-4 grid-cols-6;
+    @apply table-row;
+}
+
+.rowTasksList{
+    @apply table-row-group;
+}
+*/
+.taskId, .taskCreator, .taskType, .taskDescription, .taskCreationDate, .taskFinalizationDate, .margin, .divMod, .divDel{
+
+    @apply content-center bg-gray-300  justify-items-center text-center;
+}
+
+.divMod >a, .divDel >a{
+    @apply place-content-center;
+}
+
+.iconMod{
+    background-image: url("/web/images/modify-i.png");
+}
+.iconDel{
+    background-image: url("/web/images/delete-i.png");
+}
+.iconDel, .iconMod{
+    @apply bg-no-repeat bg-contain;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}
+
+.divMod > button, .divDel > button{
+    @apply block m-auto mt-2 mb-2;
+}
+
+/* STYLE FOR THE MODIFICATION FORMULAR START */
+#modTaskId{
+	@apply bg-slate-300;
+}
+
+#modFormDiv{
+	@apply fixed snap-center size-full object-center;
+	@apply bg-slate-500 bg-opacity-70;
+	@apply left-0 right-0 top-0 bottom-0;
+	/*@apply collapse;*/
+	/*Because line above not working "collapse"*/
+	display: none;
+	
+}
+#innerModFormDiv{
+	@apply flex items-center justify-center size-full;
+	@apply bg-opacity-100;
+
+}
+#contentModFormDiv{
+	@apply flex flex-auto flex-col flex-wrap flex-wrap justify-center items-center content-center mx-auto;
+	@apply m-4 bg-slate-300 rounded-lg border-4 border-black border-solid;
+}
+
+#contentModFormDiv > form{
+	@apply mt-4 mb-4;
+}
+.groupForm{
+	@apply flex flex-wrap flex-row justify-between items-center;
+}
+
+.groupForm > *{
+	@apply mx-0.5 font-bold;
+	@apply text-sm;
+	@apply grow shrink;
+	
+}
+.groupForm > label{
+	@apply ml-2;
+}
+
+#modTaskDescription{
+	@apply size-full;
+}
+
+#submitModForm{
+	@apply size-full font-bold;
+}
+
+.groupForm > .inputGroup > button{
+	@apply my-4 size-full font-bold;
+}
+
+/*border to inputs*/
+.inputGroup > input, .inputGroup > textarea, .inputGroup > button, .inputGroup > select
+{
+	@apply mb-1 border-2 border-black rounded p-2;
+}
+.inputGroup > label{
+	@apply mb-2 mt-2;
+}
+#submitModForm{
+	@apply bg-lime-300;
+}
+#modFormCloseButton{
+	@apply bg-red-300;
+}
+
+/* STYLE FOR THE MODIFICATION FORMULAR END */
+
+
+
+
+
+/* STYLE FOR THE ADDTION FORMULAR START */
+#addTaskId{
+	@apply bg-slate-300;
+}
+
+#addFormDiv{
+	@apply fixed snap-center size-full object-center;
+	@apply bg-slate-500 bg-opacity-70;
+	@apply left-0 right-0 top-0 bottom-0;
+	/*@apply collapse;*/
+	/*Because line above not working "collapse"*/
+	display: none;
+	
+}
+#innerAddFormDiv{
+	@apply flex items-center justify-center size-full;
+	@apply bg-opacity-100;
+
+}
+#contentAddFormDiv{
+	@apply flex flex-auto flex-col  flex-wrap justify-center items-center content-center mx-auto;
+	@apply m-4 bg-slate-300 rounded-lg border-4 border-black border-solid;
+}
+
+#contentAddFormDiv > form{
+	@apply mt-4 mb-4;
+}
+
+#addTaskDescription{
+	@apply size-full;
+}
+
+#submitAddForm{
+	@apply size-full font-bold;
+}
+
+#submitAddForm{
+	@apply bg-lime-300;
+}
+#addFormCloseButton{
+	@apply bg-red-300;
+}
+/* STYLE FOR THE ADDTION FORMULAR END */
+
+
+/* STYLE FOR THE DELETION FORMULAR START */
+#delFormDiv{
+	display: none;
+}
+/* STYLE FOR THE DELETION FORMULAR END */
+
+footer{
+	@apply h-14;
+	/*heigth: 100px;*/
+}
+
+
+/* STYLE FOR THE EMPTY STATE START -------------- */
+
+#tasksEmptyState{
+	@apply flex flex-auto flex-col justify-center items-center content-center mx-auto;
+}
+
+#tasksEmptyState > text{
+	@apply justify-center items-center content-center m-10 text-center;
+}

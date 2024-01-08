@@ -10,5 +10,10 @@
  * '/calendar' => 'calendar#index'
  */
 $routes = array(
-	'/test' => 'test#index'
+	'/test' => 'test#index',
+	'/' => 'index#index',
+	'/web' =>'index#index',
+	'/web/' =>'index#index'
+	// Example for paramaters (if I am not wrong, but I am)
+	//'/test:paramOne:paramTwo:paramThree' => 'test#index'
 );

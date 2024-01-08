@@ -8,6 +8,9 @@ class Model
 	protected $_dbh = null;
 	protected $_table = "";
 	
+	//PDO class php
+	// https://www.php.net/manual/en/class.pdo.php
+	
 	public function __construct()
 	{
 		// parses the settings file
@@ -48,9 +51,18 @@ class Model
 		$sql = 'select * from ' . $this->_table;
 		$sql .= ' where id = ?';
 		
+		//PDO::prepare — Prepares a statement for execution and returns a statement object 
 		$statement = $this->_dbh->prepare($sql);
+		// The statement template can contain zero or more named (:name) or question mark (?) 
+		//parameter markers for which real values will be substituted when the statement is executed. 
+		//Both named and question mark parameter markers cannot be used within the same statement template;
+		// only one or the other parameter style. Use these parameters to bind any user-input, 
+		//do not include the user-input directly in the query.
+		
+		//Source: https://www.php.net/manual/en/pdostatement.execute.php
 		$statement->execute(array($id));
 		
+		//Source: https://www.php.net/manual/en/pdostatement.fetch.php
 		return $statement->fetch(PDO::FETCH_OBJ);
 	}
 	

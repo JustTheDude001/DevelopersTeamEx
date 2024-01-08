@@ -29,12 +29,18 @@ class Request
 	{
 		if ($this->isPost()) {
 			if(isset($_POST[$key])) {
-				return $_POST[$key];
+				//Original
+				//return $_POST[$key];
+				//Dude's tought about security...
+				return htmlspecialchars($_POST[$key]);
 			}
 		}
 		else if ($this->_isGet()) {
 			if(isset($_GET[$key])) {
-				return $_GET[$key];
+				//Original
+				//return $_GET[$key];
+				//Hohoho
+				return htmlspecialchars($_GET[$key]);
 			}
 		}
 			
