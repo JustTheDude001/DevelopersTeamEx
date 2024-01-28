@@ -81,6 +81,9 @@ function getArrayNewTask(){
 			case 'search':
 				$newTask = [];
 			break;
+			case 'filters':
+				$newTask = [];
+			break;
 		}
 		return $newTask;
 	}
@@ -109,6 +112,28 @@ function selectTasksByDescription(array $arrayTasks, string $textToSearch): arra
 
 }
 
+
+function selectTasksByFilters(array $arrayTasks, array $filters): array{
+	
+	$outputTasksArray = [];
+	
+	foreach($arrayTasks['tasks'] as $task){
+		
+		if($filters['task_type']=='All'){
+			if($task['user'] == $filters['user']){
+				$outputTasksArray['tasks'] [] = $task;
+			}
+			
+		}else{
+			if($task['user'] == $filters['user'] and $task['task_type'] == $filters['task_type']){
+				$outputTasksArray['tasks'] [] = $task;
+			}
+		}
+		
+	}
+	return $outputTasksArray;
+	
+}
 
 
 
@@ -204,6 +229,7 @@ class IndexController extends ApplicationController{
 		
 		//Search with the given input as regex
 		if($taskToDo == "search"){
+			
 			//Fetch all the tasks from the model
 			$allTasks = $appModel->fetchAll();
 			//Get the input POST parameter with the search
@@ -216,6 +242,22 @@ class IndexController extends ApplicationController{
 		
 		
 		//Else - normal display - All tasks are displayed
+		}else if($taskToDo == "filters"){
+		
+			//Fetch all the tasks from the model
+			$allTasks = $appModel->fetchAll();
+			//Get the input POST parameter with the filters
+			$filters = array(
+				'user' => $actRequest->getParam("filtersUser"),
+				'task_type' => $actRequest->getParam("filtersTaskType")
+			);
+			
+			//Select the fitting tasks to the search string
+			$selectedTasks = selectTasksByFilters($allTasks, $filters);
+			
+			//Set the found task to show in the view
+			$this->view->__setAssociativeArray($selectedTasks);
+			
 		}else{
 			$this->view->__setAssociativeArray($appModel->fetchAll());
 		}
