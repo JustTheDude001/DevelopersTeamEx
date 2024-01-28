@@ -6,6 +6,17 @@
 		<a href="javascript:;"><i class="iconMod" style="<?php echo "background-image: url('" . get_png("addTaskPlus.png") ."')" ?>"></i></a>
 		</button>
 	</div>	
+	
+	<div class="taskSearcher">
+		<form id="taskSearcherForm" >
+			<input type="text" id="searchTaskForm" name="taskForm" value="search" hidden readonly>
+			<input type="search" id="taskSeacherInput" name="taskSeacherInput" placeholder="Search...">
+			<button>Search!</button>
+		</form>
+	
+	</div>
+	
+	
 </header>
 
 <main>
@@ -44,10 +55,6 @@
 		<?php addListTaskIntoHTML($this)?>
 		
 			
-		
-		
-		
-		
 		</tbody>
 	</table>
 	

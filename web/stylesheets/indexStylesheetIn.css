@@ -215,3 +215,20 @@ footer{
 #tasksEmptyState > text{
 	@apply justify-center items-center content-center m-10 text-center;
 }
+
+/* Search bar for tasks */
+
+.taskSearcher{
+	@apply bg-slate-300 rounded-lg;
+	@apply flex flex-row flex-wrap content-center items-center justify-center ml-auto;
+	@apply border-2 border-black rounded;
+	@apply mr-4;
+}
+#taskSearcherForm{
+	
+	@apply h-7;
+	@apply self-center;
+	@apply flex flex-row flex-wrap content-center items-center justify-center ml-auto;
+	@apply my-auto;
+	@apply text-black;
+}

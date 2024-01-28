@@ -65,7 +65,8 @@ function getArrayNewTask(){
 		return $newTask;
 	}
 				
-	//For workaround 
+	//For workaround
+	//For future versions -  DO NOT USE 'submit' parameter, use CUSTOM* parameter!
 		
 	$taskToDo = $actRequest->getParam("taskForm");
 	if(isset($taskToDo)){
@@ -77,6 +78,9 @@ function getArrayNewTask(){
 				"task_id" => $taskID,
 				);
 			break;
+			case 'search':
+				$newTask = [];
+			break;
 		}
 		return $newTask;
 	}
@@ -85,40 +89,44 @@ function getArrayNewTask(){
 }
 
 
+
+function selectTasksByDescription(array $arrayTasks, string $textToSearch): array{
+	
+	$outputTasksArray = [];
+	
+	foreach($arrayTasks['tasks'] as $task){
+		
+		$description = $task["description"];
+		$textUpper = strtoupper($textToSearch);
+		$descriptionUpper = strtoupper($description);
+		
+		if(str_contains($descriptionUpper, $textUpper )){
+			$outputTasksArray['tasks'] [] = $task;
+		}
+	}
+	
+	return $outputTasksArray;
+
+}
+
+
+
+
 class IndexController extends ApplicationController{
 
 	//The action is executed before calling the script to display phtml.
 	public function indexAction(){
-		
-		//No need of calling anything in the index
-		//It just needs to display the entire list of tasks
-		//$this->view->message = "hello from test Index index::index";
-		
-		//Okay... need to do some stuff....
+	//The action is executed before calling the script to display phtml.
+
 		//If method is post:
 			//If submit = modTask --> Modify task and store in "database"
 			//If submit = addTask --> Add a new task
 			//If submit = delTask --> Delete task with proper ID and update database
 			
+			//If taskForm POST Param is delete --> delete the given task
+			//If taskForm POST Param is seach --> Search in the tasks
+			
 		//Afterwards --> Show again list of tasks
-		
-		//IF _POST is null just retrieving from javascripts...
-		
-		//if(!isset($_POST)){
-		if(empty($_POST)){
-			//Thought about doing below but too many changes must be done...
-			//$_SESSION['POST_JV'] = json_decode(file_get_contents('php://input', true);
-			//NOT RECOMMENDED - But modifying variable $_POST:
-			//debug_to_console("Setting Post...");
-			//$_POST = file_get_contents('php://input');
-			
-			//Problems.... always probleeemmss...
-			//Check if next line needed:
-			//ini_set("allow_url_fopen", true);
-			
-			$_POST = json_decode(file_get_contents('php://input'), true);
-			
-		}
 		
 		//This is the ONLY part of the code that needs to change in all files but model files
 		//JSON Persistency
@@ -128,37 +136,53 @@ class IndexController extends ApplicationController{
 		//MongoDB Persistency
 		//$appModel = new MongoDBModel();
 		
+		
+		
 		$actRequest = new Request();
-		$actionDone = False;
 		if($actRequest->isPost()){
 			$submit = $actRequest->getParam("submit");
 			
 			if(isset($submit)){
-			
-			$actionDone = True;
-			$newTask = getArrayNewTask();
-			
-			
-			switch($submit){
-				case 'addTask':
-					$appModel->save($newTask);
-					debug_to_console("Adding task...");
-					break;
-				case 'modTask':
-				//Yeah the same as addTask.. i am so original... (can reduce a few lines code, not done because of lazyness)
-					$appModel->save($newTask);
-					debug_to_console("Modifying task...");
-					break;
-				case 'delTask':
-					$appModel->delete($newTask['task_id']);
-					debug_to_console("Deleting task...");
-					break;
-				default:
-					echo "Alarm somewhere... An intrusion Try!!!\n";
-					debug_to_console("Alarming task...");
-					break;
+
+				$newTask = getArrayNewTask();
 				
-			}
+				
+				switch($submit){
+					case 'addTask':
+						//Finalization Date after or equal Creation Date:
+						try{
+							if(strtotime($newTask['creation_date'])>strtotime($newTask['finalization_date'])){
+								$newTask['finalization_date'] = $newTask['creation_date'];
+							}
+						}catch(Exception $e){
+							debug_to_console("exception = ", $e);
+						}
+					
+						$appModel->save($newTask);
+						break;
+						
+					case 'modTask':
+						//Finalization Date after or equal Creation Date:
+						try{
+							if(strtotime($newTask['creation_date'])>strtotime($newTask['finalization_date'])){
+								$newTask['finalization_date'] = $newTask['creation_date'];
+							}
+						}catch(Exception $e){
+							debug_to_console("exception = ", $e);
+						}
+						
+						$appModel->save($newTask);
+						break;
+						
+					case 'delTask':
+						$appModel->delete($newTask['task_id']);
+						break;
+						
+					default:
+						echo "Alarm somewhere... An intrusion Try!!!\n";
+						break;
+					
+				}
 			}
 		}
 		
@@ -169,33 +193,32 @@ class IndexController extends ApplicationController{
 			switch($taskToDo){
 				case 'delete':
 					$appModel->delete($newTask['task_id']);
-					debug_to_console("Deleting task...");
 					break;
+				//For the search bar
+				case 'search':
+					break;
+					
 			}
 			
 		}
 		
-		
-		//Okay while using javascript _POST is not updated... therefore must use something as:
-		//$_POST = json_decode(file_get_contents('php://input'), true);
-		
-		/*
-		//Okay done above easier
-		if($actionDone == False){
-			//Thought about doing below but too many changes must be done...
-			//$_SESSION['POST_JV'] = json_decode(file_get_contents('php://input', true);
-			//NOT RECOMMENDED - But modifying variable $_POST:
-			$_POST = json_decode(file_get_contents('php://input'), true);
+		//Search with the given input as regex
+		if($taskToDo == "search"){
+			//Fetch all the tasks from the model
+			$allTasks = $appModel->fetchAll();
+			//Get the input POST parameter with the search
+			$textToSearch = $actRequest->getParam("taskSeacherInput");
+			//Select the fitting tasks to the search string
+			$selectedTasks = selectTasksByDescription($allTasks, $textToSearch);
 			
-		}*/
+			//Set the found task to show in the view
+			$this->view->__setAssociativeArray($selectedTasks);
 		
-		//Show task list
-		//$actView = new View();
-		//$actView-->__setAssociativeArray($appModel->fetchAll());
-		//$actView->
-		//$_SESSION['tasks'] = $appModel->fetchAll();
-		//debug_to_console_3($_SESSION['tasks'] );
-		$this->view->__setAssociativeArray($appModel->fetchAll());
+		
+		//Else - normal display - All tasks are displayed
+		}else{
+			$this->view->__setAssociativeArray($appModel->fetchAll());
+		}
 	}
 
 	public function checkAction(){

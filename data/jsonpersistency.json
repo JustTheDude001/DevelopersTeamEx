@@ -6,7 +6,39 @@
             "task_type": "Finished",
             "description": "two",
             "creation_date": "2024-01-08T12:32",
-            "finalization_date": "2024-01-08 12:32"
+            "finalization_date": "2024-01-23T12:32"
+        },
+        {
+            "task_id": 2,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\thoho",
+            "creation_date": "2024-01-28 16:09",
+            "finalization_date": ""
+        },
+        {
+            "task_id": 3,
+            "user": "DudeTry",
+            "task_type": "Pending",
+            "description": "\t\t\t\tTask try",
+            "creation_date": "2024-01-28 16:21",
+            "finalization_date": "2024-01-28T16:20"
+        },
+        {
+            "task_id": 4,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\tOne",
+            "creation_date": "2024-01-28 16:33",
+            "finalization_date": "2024-01-28T16:33"
+        },
+        {
+            "task_id": 5,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\tAnother Task in the dust",
+            "creation_date": "2024-01-28 16:34",
+            "finalization_date": "2024-01-28T16:34"
         }
     ]
 }
