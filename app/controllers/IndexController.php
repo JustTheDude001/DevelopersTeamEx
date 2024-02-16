@@ -115,22 +115,35 @@ function selectTasksByDescription(array $arrayTasks, string $textToSearch): arra
 
 function selectTasksByFilters(array $arrayTasks, array $filters): array{
 	
-	$outputTasksArray = [];
+	$outputTasksArray ['tasks'] = [];
+	$outputTasksArrayUsers ['tasks'] = [];
 	
-	foreach($arrayTasks['tasks'] as $task){
+	//First by string
+	if( empty($filters['user']) == True){
+		$outputTasksArrayUsers['tasks'] = $arrayTasks['tasks'];
+	
+	}else{
 		
-		if($filters['task_type']=='All'){
+		foreach($arrayTasks['tasks'] as $task){
 			if($task['user'] == $filters['user']){
-				$outputTasksArray['tasks'] [] = $task;
+				$outputTasksArrayUsers['tasks'] [] = $task;
 			}
-			
-		}else{
-			if($task['user'] == $filters['user'] and $task['task_type'] == $filters['task_type']){
+		}
+	}
+	
+	
+	if($filters['task_type']=='All'){
+		$outputTasksArray['tasks'] = $outputTasksArrayUsers['tasks'];
+	}else{
+
+		foreach($outputTasksArrayUsers['tasks'] as $task){
+
+			if($task['task_type'] == $filters['task_type']){
 				$outputTasksArray['tasks'] [] = $task;
 			}
 		}
-		
 	}
+	
 	return $outputTasksArray;
 	
 }
@@ -236,7 +249,7 @@ class IndexController extends ApplicationController{
 			$textToSearch = $actRequest->getParam("taskSeacherInput");
 			//Select the fitting tasks to the search string
 			$selectedTasks = selectTasksByDescription($allTasks, $textToSearch);
-			
+
 			//Set the found task to show in the view
 			$this->view->__setAssociativeArray($selectedTasks);
 		
