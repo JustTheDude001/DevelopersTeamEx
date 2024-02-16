@@ -13,7 +13,12 @@
 			<input type="search" id="taskSeacherInput" name="taskSeacherInput" placeholder="Search...">
 			<button>Search!</button>
 		</form>
+	</div>
 	
+	<div id="filters-container">
+		<button id="filtersButton" onclick="filtersFunction()">
+			<a href="javascript:;"><i class="filtersSel" style="<?php echo "background-image: url('" . get_png("filters.png") ."')" ?>"></i></a>
+		</button>
 	</div>
 	
 	
@@ -23,7 +28,7 @@
 	<table id="tasksList">
 		<thead id="headerTasksList">
 			<tr>
-			<th class="taskId">
+			<th class="taskId hiddenRow">
 				Task ID
 			</th>
 			<th class="taskCreator">
@@ -251,6 +256,59 @@
 	</div>
 	
 	<!-- Formular in order to be able to add a tasks  END-->
+	
+	
+	
+	<!-- HIDDEN Formular in order to be able to delete a task -->
+	<!-- just javascript does not wanna work after 1000 tries -->
+	<div id="filtersFormDiv">
+	<div id="innerFiltersFormDiv">
+	<div id="contentFiltersFormDiv">
+	<form id="filtersForm" action="" method="post">
+		<input type="text" id="filtersTaskForm" name="taskForm" value="filters" hidden readonly>
+		<h2>Filters:</h2>
+		<div class="groupForm">
+			
+			<div class="inputGroup">
+				<label for="user">User:</label> </br>
+				<input type="text" id="user" name="filtersUser">
+			</div>
+			
+			<div class="inputGroup">
+					<label for="addTaskType">Task Type:</label><br>
+					<select id="addTaskType" name="filtersTaskType">
+						<option value="Pending">Pending</option>
+						<option value="Ongoing">Ongoing</option>
+						<option value="Finished">Finished</option>
+						<option value="All">All</option>
+					</select>
+			</div>
+
+		</div>
+			
+		<div class="groupForm">
+			<div class="inputGroup">
+				
+				
+				<input type="submit" value="Apply Filters">
+				<!--<button id="submitDelForm" type="submit" name="btnSubmit" value="delTask">Add Task</button>-->
+			</div>
+			<button id="filtersHideButton" onclick="filtersHideFunction()">
+				<a href="javascript:;">Cancel</a>
+			</button>
+			
+			
+		</div>
+	
+		
+	</form>
+		
+	</div>
+	</div>
+	</div>
+	
+	
+	
 	
 	
 </main>
