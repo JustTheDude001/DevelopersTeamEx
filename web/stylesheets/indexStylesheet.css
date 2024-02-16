@@ -1040,3 +1040,6 @@ footer {
   margin-bottom: 1rem;
 }
 
+.hiddenRow{
+  display: none;
+}

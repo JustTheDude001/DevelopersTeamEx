@@ -276,3 +276,6 @@ footer{
 	@apply mt-4 mb-4;
 }
 
+.hiddenRow{
+	display: none;
+}
