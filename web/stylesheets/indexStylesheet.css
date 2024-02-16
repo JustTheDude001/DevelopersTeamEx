@@ -627,6 +627,8 @@ header > h2 {
 main {
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
 }
 
 #tasksList{
