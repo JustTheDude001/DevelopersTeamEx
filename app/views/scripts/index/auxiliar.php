@@ -31,7 +31,7 @@ function addListTaskIntoHTML($obj){
 			
 			//ToDo Associative array and reduce to a loop each row but the two at the end.
 			echo "<tr class=\"rowTasksList\">
-				<td class=\"taskId\">
+				<td class=\"taskId hiddenRow\">
 					" . getParamSessionAssociativeArray($array, $counter, 'task_id', $obj) .  "
 				</td>
 				<td class=\"taskCreator\">

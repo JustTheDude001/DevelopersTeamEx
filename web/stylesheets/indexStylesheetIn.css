@@ -30,6 +30,7 @@ header > h2{
 }
 main{
 	@apply bg-slate-500;
+	@apply mx-14;
 }
 
 #tasksList{
@@ -37,6 +38,7 @@ main{
     @apply table w-full table-auto border-separate;
     @apply place-content-center;*/
     @apply table-auto border-separate w-full;
+    
 }
 /*
 #headerTasksList{
@@ -276,3 +278,6 @@ footer{
 	@apply mt-4 mb-4;
 }
 
+.hiddenRow{
+	display: none;
+}
