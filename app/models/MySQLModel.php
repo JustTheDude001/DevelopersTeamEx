@@ -73,10 +73,7 @@ class MySQLModel extends Model
 	//Use to fetch all the occurrences of the database table
 	//Dude's Function
 	public function fetchAll(){
-		$sql = 'select * from ' . $this->_table;
-		//Commented line below to fetch all in an array:
-		//$sql .= ' where id = ?';
-		
+		$sql = 'select * from ' . $this->_table;		
 		//PDO::prepare — Prepares a statement for execution and returns a statement object 
 		$statement = $this->_dbh->prepare($sql);
 		// The statement template can contain zero or more named (:name) or question mark (?) 
@@ -95,18 +92,13 @@ class MySQLModel extends Model
 		//$databaseArray = $statement->fetch(PDO::FETCH_OBJ); 
 		$databaseStdObj = $statement->fetchAll(PDO::FETCH_OBJ);
 		
-		/*$outputArray = array(
-			'tasks' => (array) $databaseStdObj
-		);*/
 		//Convert standard object to associative array:
 		$outputArray = json_decode(json_encode($databaseStdObj), true);
 		
 		$outputArray = array(
 			'tasks' => (array) $outputArray
 		);
-		
-		//debug_to_console("Array Fetched");
-		//debug_to_console($outputArray);
+
 		return $outputArray;
 		
 	}
@@ -126,10 +118,7 @@ class MySQLModel extends Model
 		
 		//Workaround for setting null in none existing parameters:
 		$data = setNullIfNotExisting($data);
-		
-		
-		
-		
+
 		if (array_key_exists('task_id', $data) and $data['task_id'] != 0) {
 			
 			//If task_type changes from something that is not finished to finished update finalization date:
@@ -153,24 +142,19 @@ class MySQLModel extends Model
 			foreach($data as $key => $value) {
 				if ($key != 'task_id') {
 					$sql .= ($first == false ? ',' : '') . ' ' . $key . ' = ?';
-					
 					$values[] = $value;
-					
 					$first = false;
 				}
 			}
 			
 			// adds the id as well
 			$values[] = $data['task_id'];
-			
 			$sql .= ' where task_id = ?';// . $data['id'];
-			
 			$statement = $this->_dbh->prepare($sql);
 			return $statement->execute($values);
 		}
 		else {
 			$keys = array_keys($data);
-			
 			$sql = 'insert into ' . $this->_table . '(';
 			$sql .= implode(',', $keys);
 			$sql .= ')';
@@ -185,7 +169,6 @@ class MySQLModel extends Model
 				
 				$first = false;
 			}
-			
 			$sql .= ')';
 			
 			$statement = $this->_dbh->prepare($sql);

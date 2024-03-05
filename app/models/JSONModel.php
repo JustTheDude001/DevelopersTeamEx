@@ -17,12 +17,7 @@ class JSONModel extends Model{
 		
 		//Store the path of the JSON File:
 		$this->pathJSONFile = ROOT_PATH . $settings['JSONPersistency']['filePath'];
-		
-		if(!file_exists($this->pathJSONFile)){
-			debug_to_console("JSON NOt existing! ",$this->pathJSONFile);
-		}
-		
-		debug_to_console($this->pathJSONFile);
+
 		//Will do nothing, nonetheless conserverd for the sake of... doing nothing...what an amazing thing to do...
 		$this->init();
 	}
@@ -52,8 +47,6 @@ class JSONModel extends Model{
 		debug_to_console($this->pathJSONFile);
 		$json_data = file_get_contents($this->pathJSONFile);
 		$arrayJSONFile = json_decode($json_data, TRUE);
-		debug_to_console("Delete Me Debug 01 :");
-
 		
 		if(isset($arrayJSONFile)){
 			return $arrayJSONFile;
@@ -91,15 +84,10 @@ class JSONModel extends Model{
 				//Updating finalization date if was NOT finished and now is Finished:
 				if( strtoupper($task['task_type']) != "FINISHED" and (strtoupper($data['task_type']) == "FINISHED") ){
 					$task['finalization_date'] = date("Y-m-d H:i");
-					debug_to_console("Finalization date...");
 					$task['task_type'] = $data['task_type'];
 				}else{
 					$task['task_type'] = $data['task_type'];
-				}
-				debug_to_console("Task Type");
-				debug_to_console($task['task_type']);
-				debug_to_console($data['task_type']);
-				
+				}				
 				
 				break;
 			}
@@ -139,17 +127,9 @@ class JSONModel extends Model{
 		//$jsonArray = json_encode($arrayJSONFile);
 		//I want it pretty!!
 		$jsonArray = json_encode($arrayJSONFile, JSON_PRETTY_PRINT);
-		file_put_contents($this->pathJSONFile, $jsonArray);
+		file_put_contents($this->pathJSONFile, $jsonArray);		
 		
-		debug_to_console("modifiedBool");
-		debug_to_console($modifiedBool);
-		
-		
-		return 1;
-		//Improvement:
-		//If modifiedBool == False append
-		//IF modifiedBool == True store all
-		
+		return 1;		
 	}
 	
 	
@@ -169,15 +149,12 @@ class JSONModel extends Model{
 				$jsonArray = json_encode($arrayJSONFile, JSON_PRETTY_PRINT);
 				file_put_contents($this->pathJSONFile, $jsonArray);
 				
-				debug_to_console("Deleting....");
-				
 				//It returns 1 on success
 				return 1;
 			}
 			$index++;
 		}
 		//It returs 0 if the element with id $id was not found
-		debug_to_console("Task not deleted - ID NOT FOund .... ID = ", $id);
 		return 0;
 		
 	}

@@ -61,44 +61,6 @@ function delTaskFunctionJavascriptOnly(){
 		}));
 	//Send post request:
 	
-	/*
-	fetch(window.location.href, {
-		method: "POST",
-		headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		},
-		body: JSON.stringify({
-			task_id: taskId,
-			submit: "delTask",
-		})
-		
-	});*/
-	
-	/*
-	fetch(window.location.href, {
-		method: "POST",
-		headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		},
-		body: JSON.stringify({
-			task_id: taskId,
-			submit: "delTask",
-		})
-		
-	}).then(() => {
-		window.location.reload();
-	});*/
-	/*
-	fetch(window.location.href, {
-		method: "POST",
-		body: JSON.stringify({
-			task_id: taskId,
-			submit: "delTask",
-		})
-		
-	}).then(() => {
-		window.location.reload();
-	});*/
 	
 	fetch(myWebURL, {
 		method: "POST",
@@ -135,10 +97,7 @@ function delTaskFunction(){
 function addTaskFunction(){
 	
 	//Add creation_date as system date
-	//document.getElementById("modTaskType").value = taskType;
-	//document.getElementById("addCreationDate").value = ( Date.now().toString());
-	//document.getElementById("addCreationDate").value = ( Date.now());
-	//document.getElementById("addCreationDate").value = ( new Date().toString());
+
 	var date = new Date();
 	var dateStr = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2,0)
 		+ '-' + date.getDate().toString().padStart(2,0);
@@ -152,6 +111,16 @@ function addTaskFunction(){
 function closeAddFormPopUpFunction(){
 	document.getElementById("addFormDiv").style.display = "none";
 }
+
+
+function filtersFunction(){
+	document.getElementById("filtersFormDiv").style.display = "block";
+}
+
+function filtersHideFunction(){
+	document.getElementById("filtersFormDiv").style.display = "none";
+}
+
 
 
 if ( window.history.replaceState ) {

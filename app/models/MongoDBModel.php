@@ -71,7 +71,6 @@ class MongoDBModel extends Model
 		$cursor = $this->coll->find();
 		$dataArray = $cursor->toArray();
 		
-		//Experimental:
 		$datArrayOut = array(
 			"tasks" =>  $dataArray
 		);
@@ -96,8 +95,7 @@ class MongoDBModel extends Model
 			if($data['task_id'] != 0){
 				//Modify if existing task with task_id
 				$taskID = $data['task_id'] ;
-				
-				
+
 				//Stored data with the ID fetch:
 				$storedData = $this->coll->findOne(['task_id' => strval($data['task_id'])]);
 				
@@ -107,21 +105,19 @@ class MongoDBModel extends Model
 				}
 				
 				$filter = [
-					'task_id' =>  strval($taskID)
+					//'task_id' =>  strval($taskID)
+					'task_id' => new MongoDB\BSON\Int64((int)str_replace(" ", "", $taskID))
 				];
-
+				
+				//Converting the data['task_id'] into and int base 64 mongo variable:
+				$data['task_id'] = new MongoDB\BSON\Int64((int)str_replace(" ", "", $taskID));
+				
 				$dataUpdate = [
 					'$set' => $data
 				];
 				
-				
-				
-				
 				$updateResult = $this->coll->updateOne($filter,	$dataUpdate);
-				
-				//debug_to_console("Task Modified MOngo");
-				//debug_to_console($updateResult->getModifiedCount());
-				//debug_to_console($updateResult->getMatchedCount());
+
 			}else{
 				
 				//Search for the maximum task_id:
@@ -134,8 +130,6 @@ class MongoDBModel extends Model
 				];
 				$maxId = $this->coll->find($filter, $options);
 				$maxIdArray =  $maxId->toArray();
-				//debug_to_console("MaxIdArray:");
-				//debug_to_console(var_dump($maxIdArray));
 				
 				if(isset($maxIdArray[0]['task_id'])){
 					$new_ID = $maxIdArray[0]['task_id'] +1;
@@ -143,20 +137,10 @@ class MongoDBModel extends Model
 					$new_ID = 1;
 				}
 				
-				
-				//Cursor to datafield task_id
-				//HERE!!!
-				//Find:
-				//db.Tasks.find({"task_id" => $},{},{}).pretty();
-				// db.Tasks.find().sort({).limit(1).pretty();
-				
-				$data['task_id'] = strval($new_ID);
-				
+				//$data['task_id'] = strval($new_ID);
+				$data['task_id'] = new MongoDB\BSON\Int64($new_ID);
 				$data['creation_date'] = date("Y-m-d H:i:s");
 				
-				//Change task_id = 0 to the maximum task_id + 1
-				
-				//debug_to_console("Task Added MOngo");
 				//Add the task to the documents:
 				$this->coll->insertOne($data);
 			}
@@ -176,20 +160,18 @@ class MongoDBModel extends Model
 	 */
 	public function delete($id)
 	{
-		/*
-		debug_to_console("Calling deleteeeee!!!!");
-		debug_to_console($id);
-		* 
-		* */
 
 		$filter = [
-			"task_id" => strval($id)
+			//"task_id" => strval($id)
+			//"task_id" => (int)$id
+			'task_id' => new MongoDB\BSON\Int64((int)str_replace(" ", "", $id))
 		];
 		$secondParam = [
 			'limit' => 1
 		];
 		
 		$this->coll->deleteOne($filter, $secondParam);
+		//$this->coll->deleteOne(['task_id' => $id], $secondParam);
 
 	}
 	
