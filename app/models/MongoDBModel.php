@@ -95,8 +95,7 @@ class MongoDBModel extends Model
 			if($data['task_id'] != 0){
 				//Modify if existing task with task_id
 				$taskID = $data['task_id'] ;
-				
-				
+
 				//Stored data with the ID fetch:
 				$storedData = $this->coll->findOne(['task_id' => strval($data['task_id'])]);
 				
@@ -106,9 +105,13 @@ class MongoDBModel extends Model
 				}
 				
 				$filter = [
-					'task_id' =>  strval($taskID)
+					//'task_id' =>  strval($taskID)
+					'task_id' => new MongoDB\BSON\Int64((int)str_replace(" ", "", $taskID))
 				];
-
+				
+				//Converting the data['task_id'] into and int base 64 mongo variable:
+				$data['task_id'] = new MongoDB\BSON\Int64((int)str_replace(" ", "", $taskID));
+				
 				$dataUpdate = [
 					'$set' => $data
 				];
@@ -126,6 +129,7 @@ class MongoDBModel extends Model
 					'limit' => 1
 				];
 				$maxId = $this->coll->find($filter, $options);
+				$maxIdArray =  $maxId->toArray();
 				
 				if(isset($maxIdArray[0]['task_id'])){
 					$new_ID = $maxIdArray[0]['task_id'] +1;
@@ -133,7 +137,8 @@ class MongoDBModel extends Model
 					$new_ID = 1;
 				}
 				
-				$data['task_id'] = strval($new_ID);
+				//$data['task_id'] = strval($new_ID);
+				$data['task_id'] = new MongoDB\BSON\Int64($new_ID);
 				$data['creation_date'] = date("Y-m-d H:i:s");
 				
 				//Add the task to the documents:
@@ -157,13 +162,16 @@ class MongoDBModel extends Model
 	{
 
 		$filter = [
-			"task_id" => strval($id)
+			//"task_id" => strval($id)
+			//"task_id" => (int)$id
+			'task_id' => new MongoDB\BSON\Int64((int)str_replace(" ", "", $id))
 		];
 		$secondParam = [
 			'limit' => 1
 		];
 		
 		$this->coll->deleteOne($filter, $secondParam);
+		//$this->coll->deleteOne(['task_id' => $id], $secondParam);
 
 	}
 	
