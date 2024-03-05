@@ -1,12 +1,36 @@
 {
     "tasks": [
         {
-            "task_id": 1,
+            "task_id": 2,
             "user": "Dude",
-            "task_type": "Finished",
-            "description": "two",
-            "creation_date": "2024-01-08T12:32",
-            "finalization_date": "2024-01-08 12:32"
+            "task_type": "Pending",
+            "description": "hohoMod",
+            "creation_date": "2024-01-28T16:09",
+            "finalization_date": "2024-01-28T16:09"
+        },
+        {
+            "task_id": 4,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\tOne",
+            "creation_date": "2024-01-28 16:33",
+            "finalization_date": "2024-01-28T16:33"
+        },
+        {
+            "task_id": 5,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\tAnother Task in the dust",
+            "creation_date": "2024-01-28 16:34",
+            "finalization_date": "2024-01-28T16:34"
+        },
+        {
+            "task_id": 6,
+            "user": "DudeNew",
+            "task_type": "Pending",
+            "description": "\t\t\t\tNewTask",
+            "creation_date": "2024-03-05 12:51",
+            "finalization_date": "2024-03-05T12:51"
         }
     ]
 }

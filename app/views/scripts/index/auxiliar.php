@@ -1,40 +1,7 @@
 <?php 
 
-//This function MUST not be used in the project 
-//ToDo - Delete it - conserved in order to know how not to do the things...
-
-function getParamSession($param){
-	//$task = $_SESSION['tasks']['tasks'];
-	$task = $this->view->__getAssociativeArray();
-	
-	debug_to_console("task:");
-	debug_to_console($task[0]['task_id']);
-	
-	debug_to_console("param:");
-	debug_to_console($param);
-	
-	debug_to_console("2param:");
-	debug_to_console(var_dump($$param));
-	
-	
-	debug_to_console("3param:");
-	debug_to_console($$$param);
-	
-	
-	if(isset($$param)){
-		return $$param;
-	}else{
-		return Null;
-	}
-	
-	
-}
-
-
 
 function getParamSessionAssociativeArray($array, $counter, $ass_id, $obj){
-	//$task = $_SESSION['tasks']['tasks'];
-	//$task = $obj->__getAssociativeArray();
 	$task = $obj->__getAssociativeArray()['tasks'];
 	
 	if(isset(${$array}[$counter][$ass_id])){
@@ -46,9 +13,6 @@ function getParamSessionAssociativeArray($array, $counter, $ass_id, $obj){
 }
 
 function addListTaskIntoHTML($obj){
-	//Okay... how to separate model with view...
-	//Storing in some field of view object?
-	//$tasks = $_SESSION['tasks'];
 	
 	$tasks = $obj->__getAssociativeArray();
 	
@@ -67,7 +31,7 @@ function addListTaskIntoHTML($obj){
 			
 			//ToDo Associative array and reduce to a loop each row but the two at the end.
 			echo "<tr class=\"rowTasksList\">
-				<td class=\"taskId\">
+				<td class=\"taskId hiddenRow\">
 					" . getParamSessionAssociativeArray($array, $counter, 'task_id', $obj) .  "
 				</td>
 				<td class=\"taskCreator\">
@@ -110,26 +74,28 @@ function addEmptyStateTable($obj){
 		return;
 	}
 	
-	$countElements = count($tasks['tasks']);
-	//If there are no elements to print -- No tasks stored add/echo the empty state:
-	if($countElements == 0){
-		//echo "I am an empty state";
-		
-		echo'
-		<div id="tasksEmptyState"> 
-			<text> Ooouuuhhh.... <br>
-			Sadly there are not tasks stored to show....<br>
-			Or maybe the connection with the persistency is not working properly... <br>
-			Who knows...<br>
-			Check adding a new task and you will! ^^ <br></text>
+	if(isset($tasks['tasks'])){
+		$countElements = count($tasks['tasks']);
+		//If there are no elements to print -- No tasks stored add/echo the empty state:
+		if($countElements == 0){
+			//echo "I am an empty state";
 			
-			<button id="addTaskButtonEmptyState" onclick="addTaskFunction()">
-			<a href="javascript:;"><i class="iconMod" style= "background-image: url(' ."'". get_png("addTaskPlus.png") ."'".') "></i></a>
-			</button>
+			echo'
+			<div id="tasksEmptyState"> 
+				<text> Ooouuuhhh.... <br>
+				Sadly there are not tasks stored to show....<br>
+				Or maybe the connection with the persistency is not working properly... <br>
+				Who knows...<br>
+				Check adding a new task and you will! ^^ <br></text>
+				
+				<button id="addTaskButtonEmptyState" onclick="addTaskFunction()">
+				<a href="javascript:;"><i class="iconMod" style= "background-image: url(' ."'". get_png("addTaskPlus.png") ."'".') "></i></a>
+				</button>
+				
+			</div>';
 			
-		</div>';
-		
-		
+			
+		}
 	}
 	
 

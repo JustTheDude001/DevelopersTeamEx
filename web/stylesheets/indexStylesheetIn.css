@@ -30,6 +30,7 @@ header > h2{
 }
 main{
 	@apply bg-slate-500;
+	@apply mx-14;
 }
 
 #tasksList{
@@ -37,6 +38,7 @@ main{
     @apply table w-full table-auto border-separate;
     @apply place-content-center;*/
     @apply table-auto border-separate w-full;
+    
 }
 /*
 #headerTasksList{
@@ -129,7 +131,7 @@ main{
 }
 
 /*border to inputs*/
-.inputGroup > input, .inputGroup > textarea, .inputGroup > button, .inputGroup > select
+.inputGroup > input, .inputGroup > textarea, .inputGroup > button, .inputGroup > select, #filtersHideButton
 {
 	@apply mb-1 border-2 border-black rounded p-2;
 }
@@ -214,4 +216,68 @@ footer{
 
 #tasksEmptyState > text{
 	@apply justify-center items-center content-center m-10 text-center;
+}
+
+/* Search bar for tasks */
+
+.taskSearcher{
+	@apply bg-slate-300 rounded-lg;
+	@apply flex flex-row flex-wrap content-center items-center justify-center ml-auto;
+	@apply border-2 border-black rounded;
+	@apply mr-4;
+}
+#taskSearcherForm{
+	
+	@apply h-7;
+	@apply self-center;
+	@apply flex flex-col flex-wrap content-center items-center justify-center ml-auto;
+	@apply my-auto;
+	@apply text-black;
+	@apply h-auto w-auto;
+}
+
+/* FOR THE FILTERS */
+
+#filtersForm > h2{
+	@apply size-full font-bold;
+}
+
+
+.filtersSel{
+	background-image: url("/web/images/filters.png");
+	@apply bg-no-repeat bg-contain;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+}
+#filtersButton{
+	@apply p-5 m-3;
+	@apply bg-slate-300 rounded-lg;
+}
+
+#filtersFormDiv{
+	@apply fixed snap-center size-full object-center;
+	@apply bg-slate-500 bg-opacity-70;
+	@apply left-0 right-0 top-0 bottom-0;
+	/*@apply collapse;*/
+	/*Because line above not working "collapse"*/
+	display: none;
+	
+}
+#innerFiltersFormDiv{
+	@apply flex items-center justify-center size-full;
+	@apply bg-opacity-100;
+
+}
+#contentFiltersFormDiv{
+	@apply flex flex-auto flex-col  flex-wrap justify-center items-center content-center mx-auto;
+	@apply m-4 bg-slate-300 rounded-lg border-4 border-black border-solid;
+}
+
+#contentFiltersFormDiv > form{
+	@apply mt-4 mb-4;
+}
+
+.hiddenRow{
+	display: none;
 }
