@@ -151,11 +151,11 @@ class IndexController extends ApplicationController{
 		
 		//This is the ONLY part of the code that needs to change in all files but model files
 		//JSON Persistency
-		//$appModel = new JSONModel();
+		$appModel = new JSONModel();
 		//mySQL Persistency
 		//$appModel = new MySQLModel();
 		//MongoDB Persistency
-		$appModel = new MongoDBModel();
+		//$appModel = new MongoDBModel();
 		
 		
 		
