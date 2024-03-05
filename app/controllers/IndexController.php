@@ -14,23 +14,13 @@ function getArrayNewTask(){
 	
 	if(isset($submit)){
 		switch($submit){
-			case 'addTask':
-			
+			case 'addTask':	
 				$taskID = $actRequest->getParam("addTaskId");
 				$taskCreator = $actRequest->getParam("addTaskCreator");
 				$taskType = $actRequest->getParam("addTaskType");
 				$taskDescription = $actRequest->getParam("addTaskDescription");
 				$taskCreationDate = $actRequest->getParam("addCreationDate");
 				$taskFinalizationDate = $actRequest->getParam("addFinalizationDate");
-				
-				$newTask = array(
-					"task_id" => $taskID,
-					"user" => $taskCreator,
-					"task_type" => $taskType,
-					"description" => $taskDescription,
-					"creation_date" => $taskCreationDate,
-					"finalization_date" => $taskFinalizationDate
-					);
 				break;
 				
 			case 'modTask':
@@ -40,28 +30,23 @@ function getArrayNewTask(){
 				$taskDescription = $actRequest->getParam("modTaskDescription");
 				$taskCreationDate = $actRequest->getParam("modCreationDate");
 				$taskFinalizationDate = $actRequest->getParam("modFinalizationDate");
-			
-				$newTask = array(
-					"task_id" => $taskID,
-					"user" => $taskCreator,
-					"task_type" => $taskType,
-					"description" => $taskDescription,
-					"creation_date" => $taskCreationDate,
-					"finalization_date" => $taskFinalizationDate
-					);
-				
 				break;
-			case 'delTask':
+			/*case 'delTask':
 				$taskID = $actRequest->getParam([0]);
-				
-				$newTask = array(
-					"task_id" => $taskID,
-					);
-			
-				break;
+				break;*/
 			default:
 				break;
 		}
+		//Create return variable newTasks:
+		$newTask = array(
+			"task_id" => $taskID ,
+			"user" => $taskCreator ?? "",
+			"task_type" => $taskType ?? "",
+			"description" => $taskDescription ?? "",
+			"creation_date" => $taskCreationDate ?? "",
+			"finalization_date" => $taskFinalizationDate ?? "",
+			);
+
 		return $newTask;
 	}
 				
@@ -73,14 +58,12 @@ function getArrayNewTask(){
 		switch($taskToDo){
 			case 'delete':
 			$taskID = $actRequest->getParam('delTaskId');
-			
 			$newTask = array(
 				"task_id" => $taskID,
 				);
 			break;
+			
 			case 'search':
-				$newTask = [];
-			break;
 			case 'filters':
 				$newTask = [];
 			break;
@@ -183,7 +166,6 @@ class IndexController extends ApplicationController{
 			if(isset($submit)){
 
 				$newTask = getArrayNewTask();
-				
 				
 				switch($submit){
 					case 'addTask':
