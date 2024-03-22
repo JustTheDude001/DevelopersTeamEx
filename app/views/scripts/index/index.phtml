@@ -8,7 +8,7 @@
 	</div>	
 	
 	<div class="taskSearcher">
-		<form id="taskSearcherForm" >
+		<form id="taskSearcherForm" method="post" >
 			<input type="text" id="searchTaskForm" name="taskForm" value="search" hidden readonly>
 			<input type="search" id="taskSeacherInput" name="taskSeacherInput" placeholder="Search...">
 			<button>Search!</button>
@@ -70,19 +70,20 @@
 	<div id="contentModFormDiv">
 	<form action="#" method="post">
 		<div class="groupForm">
+			<input type="text" id="modTaskForm" class="formFieldHidden"  name="taskForm" value="modify" readonly>
 			<div class="inputGroup">
-				<label for="modTaskId">Task ID:</label><br>
-				<input type="text" id="modTaskId" name="modTaskId" value="1" readonly>
+				<label for="taskId">Task ID:</label><br>
+				<input type="text" id="modTaskId" name="taskId" value="1" readonly>
 			</div>
 			
 			<div class="inputGroup">
-					<label for="modTaskCreator">Task Creator:</label><br>
-					<input type="text" id="modTaskCreator" name="modTaskCreator" value="Dude">
+					<label for="taskCreator">Task Creator:</label><br>
+					<input type="text" id="modTaskCreator" name="taskCreator" value="Dude">
 			</div>
 			
 			<div class="inputGroup">
-					<label for="modTaskType">Task Type:</label><br>
-					<select id="modTaskType" name="modTaskType">
+					<label for="taskType">Task Type:</label><br>
+					<select id="modTaskType" name="taskType">
 						<option value="Pending">Pending</option>
 						<option value="Ongoing">Ongoing</option>
 						<option value="Finished">Finished</option>
@@ -93,28 +94,28 @@
 		
 		<div class="groupForm">
 			<div class="inputGroup">
-				<label for="modTaskDescription">Task Description:</label><br>
-				<textarea rows="5" id="modTaskDescription" name="modTaskDescription" value="Finish the sprint 3 with JSON Persistency">
+				<label for="taskDescription">Task Description:</label><br>
+				<textarea rows="5" id="modTaskDescription" name="taskDescription" value="Finish the sprint 3 with JSON Persistency">
 				</textarea><br>
 			</div>
 		</div>
 		
 		<div class="groupForm">
 			<div class="inputGroup">
-				<label for="modCreationDate">Creation Date of the task:</label><br>
+				<label for="creationDate">Creation Date of the task:</label><br>
 				<input
 					type="datetime-local"
 					id="modCreationDate"
-					name="modCreationDate"
+					name="creationDate"
 					step="any"
 					/>
 			</div>
 			<div class="inputGroup">
-				<label for="modFinalizationDate">Finalization Date of the task:</label><br>
+				<label for="finalizationDate">Finalization Date of the task:</label><br>
 				<input
 					type="datetime-local"
 					id="modFinalizationDate"
-					name="modFinalizationDate"
+					name="finalizationDate"
 					step="any"
 					/>
 				</div>
@@ -151,19 +152,20 @@
 	<div id="contentAddFormDiv">
 	<form action="#" method="post">
 		<div class="groupForm">
+			<input type="text" id="addTaskForm" class="formFieldHidden" name="taskForm" value="add" readonly>
 			<div class="inputGroup">
-				<label for="addTaskId">Task ID:</label><br>
-				<input type="text" id="addTaskId" name="addTaskId" value="0" readonly>
+				<label for="taskId">Task ID:</label><br>
+				<input type="text" id="addTaskId" name="taskId" value="0" readonly>
 			</div>
 			
 			<div class="inputGroup">
-					<label for="addTaskCreator">Task Creator:</label><br>
-					<input type="text" id="addTaskCreator" name="addTaskCreator" value="Dude">
+					<label for="taskCreator">Task Creator:</label><br>
+					<input type="text" id="addTaskCreator" name="taskCreator" value="Dude">
 			</div>
 			
 			<div class="inputGroup">
-					<label for="addTaskType">Task Type:</label><br>
-					<select id="addTaskType" name="addTaskType">
+					<label for="taskType">Task Type:</label><br>
+					<select id="addTaskType" name="taskType">
 						<option value="Pending">Pending</option>
 						<option value="Ongoing">Ongoing</option>
 						<option value="Finished">Finished</option>
@@ -174,28 +176,28 @@
 		
 		<div class="groupForm">
 			<div class="inputGroup">
-				<label for="addTaskDescription">Task Description:</label><br>
-				<textarea rows="5" id="addTaskDescription" name="addTaskDescription">
+				<label for="taskDescription">Task Description:</label><br>
+				<textarea rows="5" id="addTaskDescription" name="taskDescription">
 				</textarea><br>
 			</div>
 		</div>
 		
 		<div class="groupForm">
 			<div class="inputGroup">
-				<label for="addCreationDate">Creation Date of the task:</label><br>
+				<label for="creationDate">Creation Date of the task:</label><br>
 				<input
 					type="datetime-local"
 					id="addCreationDate"
-					name="addCreationDate"
+					name="creationDate"
 					step="any"
 					/>
 			</div>
 			<div class="inputGroup">
-				<label for="addFinalizationDate">Finalization Date of the task:</label><br>
+				<label for="finalizationDate">Finalization Date of the task:</label><br>
 				<input
 					type="datetime-local"
 					id="addFinalizationDate"
-					name="addFinalizationDate"
+					name="finalizationDate"
 					step="any"
 					/>
 				</div>
@@ -232,8 +234,8 @@
 	<form id="delForm" action="" method="post">
 		<div class="groupForm">
 			<div class="inputGroup">
-				<label for="addTaskId">Task ID:</label><br>
-				<input type="text" id="delTaskId" name="delTaskId" value="0" readonly>
+				<label for="taskId">Task ID:</label><br>
+				<input type="text" id="delTaskId" class="formFieldHidden" name="taskId" value="0" readonly>
 				<!-- workaround.... -->
 				<input type="text" id="delTaskForm" name="taskForm" value="delete" readonly>
 			</div>

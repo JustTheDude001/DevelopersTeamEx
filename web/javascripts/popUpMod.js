@@ -47,49 +47,30 @@ function closeFormPopUpFunction(){
 	document.getElementById("modFormDiv").style.display = "none";
 }
 
-function delTaskFunctionJavascriptOnly(){
-	var taskId = event.currentTarget.parentElement.parentElement.getElementsByClassName("taskId")[0].innerText;
-	//Possible deployment ERROR - TODO Change second line below for first line:
-	//var myWebURL = window.location.href;
-	var myWebURL = window.location.host + window.location.pathname;
-	console.log("Delete taskId = ", taskId);
-	console.log(window.location.href);
-	console.log(myWebURL);
-	console.log( JSON.stringify({
-			task_id: taskId,
-			submit: "delTask",
-		}));
-	//Send post request:
-	
-	
-	fetch(myWebURL, {
-		method: "POST",
-		body: JSON.stringify({
-			task_id: taskId,
-			submit: "delTask",
-		})
-		
-	}).then(() => {
-		window.location.reload();
-	});
-	
-	
-}
 
 
 function delTaskFunction(){
 	var taskId = event.currentTarget.parentElement.parentElement.getElementsByClassName("taskId")[0].innerText;
+	console.log("I AM in delTaskFunction with ID"+taskId);
 	//Modify input values:
 	document.getElementById("delTaskId").value = taskId;
+
 	let form = document.getElementById("delForm");
+
 	//form.submit();
-	var textConfirm = "Are you sure you want to delete the task with id = " + taskId + " ? ";
-	if(confirm(textConfirm)){
+	//let textConfirm = "Are you sure you want to delete the task with id = "+taskId+" ? ";
+	var start = "";
+	var taskIdInt  = parseInt(taskId);
+	var textConfirm = start.concat("Are you sure you want to delete the task with id = ",taskIdInt," ? ");
+	
+	var yes = window.confirm(textConfirm);
+	
+	if(yes){
 		document.getElementById("delForm").submit();
 	}else{
 		return;
 	}
-
+	
 }
 
 
@@ -113,6 +94,8 @@ function closeAddFormPopUpFunction(){
 }
 
 
+
+
 function filtersFunction(){
 	document.getElementById("filtersFormDiv").style.display = "block";
 }
@@ -125,5 +108,5 @@ function filtersHideFunction(){
 
 if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
-    }
+}
 

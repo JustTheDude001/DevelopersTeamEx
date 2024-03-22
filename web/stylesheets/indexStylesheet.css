@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.0 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -814,6 +814,10 @@ main {
 }
 
 /* STYLE FOR THE MODIFICATION FORMULAR END */
+
+.formFieldHidden{
+  display: none;
+}
 
 /* STYLE FOR THE ADDTION FORMULAR START */
 
