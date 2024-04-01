@@ -1,20 +1,36 @@
 {
     "tasks": [
         {
+            "task_id": 1,
+            "user": "Mario",
+            "task_type": "Ongoing",
+            "description": "\t\t\t\tTaskOne",
+            "creation_date": "2024-03-22 17:48",
+            "finalization_date": "2024-03-22T17:48"
+        },
+        {
             "task_id": 2,
             "user": "Dude",
+            "task_type": "Finished",
+            "description": "\t\t\t\tTaskTwo",
+            "creation_date": "2024-03-22 17:49",
+            "finalization_date": "2024-03-22T18:00"
+        },
+        {
+            "task_id": 3,
+            "user": "Joan",
             "task_type": "Pending",
-            "description": "hohoMod",
-            "creation_date": "2024-01-28T16:09",
-            "finalization_date": "2024-01-28T16:09"
+            "description": "\t\t\t\tJoan",
+            "creation_date": "2024-03-22 17:49",
+            "finalization_date": "2024-03-22T17:49"
         },
         {
             "task_id": 4,
-            "user": "Dude",
+            "user": "Mario",
             "task_type": "Pending",
-            "description": "\t\t\t\tOne",
-            "creation_date": "2024-01-28 16:33",
-            "finalization_date": "2024-01-28T16:33"
+            "description": "\t\t\t\tHohoho",
+            "creation_date": "2024-03-22 17:51",
+            "finalization_date": "2024-03-22T17:50"
         }
     ]
 }

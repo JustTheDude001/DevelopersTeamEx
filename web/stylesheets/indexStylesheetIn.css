@@ -148,7 +148,9 @@ main{
 /* STYLE FOR THE MODIFICATION FORMULAR END */
 
 
-
+.formFieldHidden{
+	display: none;
+}
 
 
 /* STYLE FOR THE ADDTION FORMULAR START */

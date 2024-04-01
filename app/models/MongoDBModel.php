@@ -137,7 +137,6 @@ class MongoDBModel extends Model
 					$new_ID = 1;
 				}
 				
-				//$data['task_id'] = strval($new_ID);
 				$data['task_id'] = new MongoDB\BSON\Int64($new_ID);
 				$data['creation_date'] = date("Y-m-d H:i:s");
 				
@@ -162,8 +161,6 @@ class MongoDBModel extends Model
 	{
 
 		$filter = [
-			//"task_id" => strval($id)
-			//"task_id" => (int)$id
 			'task_id' => new MongoDB\BSON\Int64((int)str_replace(" ", "", $id))
 		];
 		$secondParam = [
@@ -171,7 +168,6 @@ class MongoDBModel extends Model
 		];
 		
 		$this->coll->deleteOne($filter, $secondParam);
-		//$this->coll->deleteOne(['task_id' => $id], $secondParam);
 
 	}
 	

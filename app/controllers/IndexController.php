@@ -1,45 +1,46 @@
 <?php
 
+/* OKAY - SOME ORDER AND REFACTORING
+ * 1. Formulars All Names Equal [DONE] ;)
+ * 2. No Switch By Submit -- All by field named "taskForm"
+ * 
+ */
+
+
 function getArrayNewTask(){
 	$actRequest = new Request();
-	$submit = $actRequest->getParam("submit");
+	$taskToDo = $actRequest->getParam("taskForm");
 	
-	//Parameters that will hold task's information:
-	$taskID = NUll;
-	$taskCreator = Null;
-	$taskType = Null;
-	$taskDescription = Null;
-	$taskCreationDate = Null;
-	$taskFinalizationDate = Null;
-	
-	if(isset($submit)){
-		switch($submit){
-			case 'addTask':	
-				$taskID = $actRequest->getParam("addTaskId");
-				$taskCreator = $actRequest->getParam("addTaskCreator");
-				$taskType = $actRequest->getParam("addTaskType");
-				$taskDescription = $actRequest->getParam("addTaskDescription");
-				$taskCreationDate = $actRequest->getParam("addCreationDate");
-				$taskFinalizationDate = $actRequest->getParam("addFinalizationDate");
+	if(isset($taskToDo)){
+		switch($taskToDo){
+			
+			case 'add':
+			case 'modify':
+				$taskID = $actRequest->getParam("taskId");
+				$taskCreator = $actRequest->getParam("taskCreator");
+				$taskType = $actRequest->getParam("taskType");
+				$taskDescription = $actRequest->getParam("taskDescription");
+				$taskCreationDate = $actRequest->getParam("creationDate");
+				$taskFinalizationDate = $actRequest->getParam("finalizationDate");
 				break;
 				
-			case 'modTask':
-				$taskID = $actRequest->getParam("modTaskId");
-				$taskCreator = $actRequest->getParam("modTaskCreator");
-				$taskType = $actRequest->getParam("modTaskType");
-				$taskDescription = $actRequest->getParam("modTaskDescription");
-				$taskCreationDate = $actRequest->getParam("modCreationDate");
-				$taskFinalizationDate = $actRequest->getParam("modFinalizationDate");
-				break;
-			/*case 'delTask':
-				$taskID = $actRequest->getParam([0]);
-				break;*/
+			case 'delete':
+				$taskID = $actRequest->getParam('taskId');
+			break;
+			
+			case 'search':
+			case 'filters':
+				$newTask = [];
+			break;
+			
 			default:
+				//Log Into Server Intrussion Try
+				return null;
 				break;
 		}
 		//Create return variable newTasks:
 		$newTask = array(
-			"task_id" => $taskID ,
+			"task_id" => $taskID ?? "",
 			"user" => $taskCreator ?? "",
 			"task_type" => $taskType ?? "",
 			"description" => $taskDescription ?? "",
@@ -49,31 +50,8 @@ function getArrayNewTask(){
 
 		return $newTask;
 	}
-				
-	//For workaround
-	//For future versions -  DO NOT USE 'submit' parameter, use CUSTOM* parameter!
-		
-	$taskToDo = $actRequest->getParam("taskForm");
-	if(isset($taskToDo)){
-		switch($taskToDo){
-			case 'delete':
-			$taskID = $actRequest->getParam('delTaskId');
-			$newTask = array(
-				"task_id" => $taskID,
-				);
-			break;
-			
-			case 'search':
-			case 'filters':
-				$newTask = [];
-			break;
-		}
-		return $newTask;
-	}
-	
 
 }
-
 
 
 function selectTasksByDescription(array $arrayTasks, string $textToSearch): array{
@@ -139,19 +117,9 @@ class IndexController extends ApplicationController{
 	public function indexAction(){
 	//The action is executed before calling the script to display phtml.
 
-		//If method is post:
-			//If submit = modTask --> Modify task and store in "database"
-			//If submit = addTask --> Add a new task
-			//If submit = delTask --> Delete task with proper ID and update database
-			
-			//If taskForm POST Param is delete --> delete the given task
-			//If taskForm POST Param is seach --> Search in the tasks
-			
-		//Afterwards --> Show again list of tasks
-		
 		//This is the ONLY part of the code that needs to change in all files but model files
 		//JSON Persistency
-		//$appModel = new JSONModel();
+		$appModel = new JSONModel();
 		//mySQL Persistency
 		$appModel = new MySQLModel();
 		//MongoDB Persistency
@@ -161,101 +129,98 @@ class IndexController extends ApplicationController{
 		
 		$actRequest = new Request();
 		if($actRequest->isPost()){
-			$submit = $actRequest->getParam("submit");
+			$taskToDo = $actRequest->getParam("taskForm");
 			
-			if(isset($submit)){
+			if(isset($taskToDo)){
 
-				$newTask = getArrayNewTask();
+				$taskData = getArrayNewTask();
 				
-				switch($submit){
-					case 'addTask':
+				switch($taskToDo){
+					case 'add':
 						//Finalization Date after or equal Creation Date:
 						try{
-							if(strtotime($newTask['creation_date'])>strtotime($newTask['finalization_date'])){
-								$newTask['finalization_date'] = $newTask['creation_date'];
+							if(strtotime($taskData['creation_date'])>strtotime($taskData['finalization_date'])){
+								$taskData['finalization_date'] = $taskData['creation_date'];
 							}
 						}catch(Exception $e){
 							debug_to_console("exception = ", $e);
 						}
 					
-						$appModel->save($newTask);
+						$appModel->save($taskData);
+						
+						//Return the view with all tasks
+						$this->view->__setAssociativeArray($appModel->fetchAll());
 						break;
 						
-					case 'modTask':
+					case 'modify':
 						//Finalization Date after or equal Creation Date:
 						try{
-							if(strtotime($newTask['creation_date'])>strtotime($newTask['finalization_date'])){
-								$newTask['finalization_date'] = $newTask['creation_date'];
+							if(strtotime($taskData['creation_date'])>strtotime($taskData['finalization_date'])){
+								$taskData['finalization_date'] = $taskData['creation_date'];
 							}
 						}catch(Exception $e){
 							debug_to_console("exception = ", $e);
 						}
 						
-						$appModel->save($newTask);
+						$appModel->save($taskData);
+						
+						//Return the view with all tasks
+						$this->view->__setAssociativeArray($appModel->fetchAll());
+						
 						break;
 						
-					case 'delTask':
-						$appModel->delete($newTask['task_id']);
+					case 'delete':
+						$appModel->delete($taskData['task_id']);
+						
+						//Return the view with all tasks
+						$this->view->__setAssociativeArray($appModel->fetchAll());
+						
+					break;
+					
+					//For the search bar
+					case 'search':
+						//Fetch all the tasks from the model
+						$allTasks = $appModel->fetchAll();
+						//Get the input POST parameter with the search
+						$textToSearch = $actRequest->getParam("taskSeacherInput");
+						//Select the fitting tasks to the search string
+						$selectedTasks = selectTasksByDescription($allTasks, $textToSearch);
+						//Set the found task to show in the view
+						$this->view->__setAssociativeArray($selectedTasks);
+						
+						break;
+					
+					case 'filters':
+						//Fetch all the tasks from the model
+						$allTasks = $appModel->fetchAll();
+						//Get the input POST parameter with the filters
+						$filters = array(
+							'user' => $actRequest->getParam("filtersUser"),
+							'task_type' => $actRequest->getParam("filtersTaskType")
+						);
+						//Select the fitting tasks to the filters parameters
+						$selectedTasks = selectTasksByFilters($allTasks, $filters);
+						
+						//Set the found task to show in the view
+						$this->view->__setAssociativeArray($selectedTasks);
+						
 						break;
 						
 					default:
 						echo "Alarm somewhere... An intrusion Try!!!\n";
+						//$this->view->__setAssociativeArray($appModel->fetchAll());
 						break;
 					
 				}
 			}
-		}
 		
-		$taskToDo = $actRequest->getParam("taskForm");
-		if(isset($taskToDo)){
-			$taskToDo = $actRequest->getParam("taskForm");
-			$newTask = getArrayNewTask();
-			switch($taskToDo){
-				case 'delete':
-					$appModel->delete($newTask['task_id']);
-					break;
-				//For the search bar
-				case 'search':
-					break;
-					
-			}
-			
-		}
-		
-		//Search with the given input as regex
-		if($taskToDo == "search"){
-			
-			//Fetch all the tasks from the model
-			$allTasks = $appModel->fetchAll();
-			//Get the input POST parameter with the search
-			$textToSearch = $actRequest->getParam("taskSeacherInput");
-			//Select the fitting tasks to the search string
-			$selectedTasks = selectTasksByDescription($allTasks, $textToSearch);
-
-			//Set the found task to show in the view
-			$this->view->__setAssociativeArray($selectedTasks);
-		
-		
-		//Else - normal display - All tasks are displayed
-		}else if($taskToDo == "filters"){
-		
-			//Fetch all the tasks from the model
-			$allTasks = $appModel->fetchAll();
-			//Get the input POST parameter with the filters
-			$filters = array(
-				'user' => $actRequest->getParam("filtersUser"),
-				'task_type' => $actRequest->getParam("filtersTaskType")
-			);
-			
-			//Select the fitting tasks to the search string
-			$selectedTasks = selectTasksByFilters($allTasks, $filters);
-			
-			//Set the found task to show in the view
-			$this->view->__setAssociativeArray($selectedTasks);
 			
 		}else{
+		
 			$this->view->__setAssociativeArray($appModel->fetchAll());
 		}
+		
+		
 	}
 
 	public function checkAction(){
