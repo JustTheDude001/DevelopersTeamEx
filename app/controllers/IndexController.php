@@ -198,7 +198,7 @@ class IndexController extends ApplicationController{
 							'user' => $actRequest->getParam("filtersUser"),
 							'task_type' => $actRequest->getParam("filtersTaskType")
 						);
-						//Select the fitting tasks to the search string
+						//Select the fitting tasks to the filters parameters
 						$selectedTasks = selectTasksByFilters($allTasks, $filters);
 						
 						//Set the found task to show in the view

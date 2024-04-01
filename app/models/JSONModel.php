@@ -65,8 +65,7 @@ class JSONModel extends Model{
 		//Store JSON file in variable:
 		$json_data = file_get_contents($this->pathJSONFile);
 		$arrayJSONFile = json_decode($json_data, TRUE);
-		//debug_to_console("arrayJsonFile:");
-		//debug_to_console($arrayJSONFile['tasks'][0]['task_id']);
+		
 		$modifiedBool = False;
 		$outputArray = [];
 		
@@ -100,23 +99,13 @@ class JSONModel extends Model{
 		//Select new task_id if needed - Not modified
 		if($modifiedBool == False){
 			//modify the values for new added task:
-			
 			$dataNewTask['task_id'] = $maxId+1;
 			$dataNewTask['user'] = $data['user'];
 			$dataNewTask['task_type'] = $data['task_type'];
 			$dataNewTask['description'] = $data['description'];
-			
-			//$dataNewTask['creation_date'] = $data['creation_date'];
 			$dataNewTask['creation_date'] = date("Y-m-d H:i");
-			
-			$dataNewTask['finalization_date'] = $data['finalization_date'];
-			
-			
-			
-			
+			$dataNewTask['finalization_date'] = $data['finalization_date'];	
 		}
-			
-		
 		
 		// If there is not task_id or the task does not exist create a new task
 		if($modifiedBool == False){
@@ -124,8 +113,6 @@ class JSONModel extends Model{
 			$arrayJSONFile ['tasks'][] = $dataNewTask;
 		}
 		//Write tha new or modified data into the file
-		//$jsonArray = json_encode($arrayJSONFile);
-		//I want it pretty!!
 		$jsonArray = json_encode($arrayJSONFile, JSON_PRETTY_PRINT);
 		file_put_contents($this->pathJSONFile, $jsonArray);		
 		
@@ -145,7 +132,6 @@ class JSONModel extends Model{
 				//CHECK if works for deleting all tasks
 				array_splice($arrayJSONFile['tasks'], $index, 1);
 				//Write tha new or modified data into the file
-				//$jsonArray = json_encode($arrayJSONFile);
 				$jsonArray = json_encode($arrayJSONFile, JSON_PRETTY_PRINT);
 				file_put_contents($this->pathJSONFile, $jsonArray);
 				
@@ -159,10 +145,6 @@ class JSONModel extends Model{
 		
 	}
 	
-	
-
 }
-
-
 
 ?>
