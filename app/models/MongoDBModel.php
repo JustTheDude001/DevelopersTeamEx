@@ -37,9 +37,6 @@ class MongoDBModel extends Model
 		$this->db = $this->myMongo->$databaseName;
 		$this->coll = $this->db->selectCollection($settings['database']['collection_name']);
 		
-		//Example queries:
-		//$coll->insertOne(['foo'=>'bar']);
-		//$coll->findOne(['foo'=>'bar']);
 		$this->init();
 	}
 	

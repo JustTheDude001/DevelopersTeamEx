@@ -31,6 +31,14 @@
             "description": "\t\t\t\tHohoho",
             "creation_date": "2024-03-22 17:51",
             "finalization_date": "2024-03-22T17:50"
+        },
+        {
+            "task_id": 5,
+            "user": "Dude",
+            "task_type": "Pending",
+            "description": "\t\t\t\tHalloooo",
+            "creation_date": "2024-04-02 20:18",
+            "finalization_date": "2024-04-02T20:18"
         }
     ]
 }
